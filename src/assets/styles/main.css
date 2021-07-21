@@ -8,6 +8,19 @@ a:hover {
   @apply underline;
 }
 
+@layer base {
+  h1 {
+    @apply text-4xl;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+}
+
 @tailwind components;
 
 @tailwind utilities;

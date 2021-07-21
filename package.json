@@ -1,5 +1,5 @@
 {
-  "name": "my-blog",
+  "name": "matthewcr.me",
   "version": "1.0.0",
   "description": "My blog",
   "scripts": {
@@ -21,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-plugin-rss": "^1.1.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.1",
     "autoprefixer": "^10.2.6",
     "copy-webpack-plugin": "^9.0.0",

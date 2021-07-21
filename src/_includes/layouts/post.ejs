@@ -11,4 +11,15 @@ layout: layouts/base.ejs
   </header>
 
   <section class="content"><%- content %></section>
+  <% var tagsList = tags.filter(t => t !== 'posts') %>
+  <% if (tagsList.length > 0) { %>
+  <p class="text-center">Read more articles like this</p>
+  <ul class="flex justify-center">
+    <% tagsList.forEach((tag) => { %>
+      <li class="mb-3 flex justify-between px-2">
+        <a href="/tags/<%= tag %>"><%= tag %></a>
+      </li>
+      <% }) %>
+  </ul>
+  <% } %>
 </article>

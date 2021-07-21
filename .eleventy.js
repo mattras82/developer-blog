@@ -2,9 +2,11 @@ const htmlmin = require('html-minifier');
 const dateFns = require('date-fns');
 const lazyImagesPlugin = require('eleventy-plugin-lazyimages');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+const pluginRss = require('@11ty/eleventy-plugin-rss');
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(pluginRss);
 
   eleventyConfig.addPlugin(lazyImagesPlugin, {
     transformImgPath: (imgPath) => {
@@ -16,6 +18,8 @@ module.exports = function (eleventyConfig) {
       }
     },
   });
+
+  eleventyConfig.setDataDeepMerge(true);
 
   eleventyConfig.setEjsOptions({
     rmWhitespace: true,
@@ -40,6 +44,29 @@ module.exports = function (eleventyConfig) {
     }
 
     return content;
+  });
+
+  eleventyConfig.addCollection("tagList", collection => {
+    const tagsObject = {}
+    collection.getAll().forEach(item => {
+      if (!item.data.tags) return;
+      item.data.tags
+        .filter(tag => !['post', 'all'].includes(tag))
+        .forEach(tag => {
+          if(typeof tagsObject[tag] === 'undefined') {
+            tagsObject[tag] = 1
+          } else {
+            tagsObject[tag] += 1
+          }
+        });
+    });
+
+    const tagList = []
+    Object.keys(tagsObject).forEach(tag => {
+      tagList.push({ tagName: tag, tagCount: tagsObject[tag] })
+    })
+    return tagList.sort((a, b) => b.tagCount - a.tagCount)
+
   });
 
   return {
